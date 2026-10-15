@@ -1,0 +1,32 @@
+meta {
+  name: Generate Alpha
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://127.0.0.1:8000/generate
+  body: json
+  auth: none
+}
+
+headers {
+  X-Demo-Token: alpha-demo
+  Content-Type: application/json
+}
+
+body:json {
+  {"site_id":1,"quantity":1,"instruction":"Type in german"}
+}
+
+script:post-response {
+  if (res.getStatus() === 201) bru.setVar("article_id", res.getBody().articles[0].id);
+}
+
+tests {
+  test("One draft in correct feed", function () {
+    expect(res.getStatus()).to.equal(201);
+    expect(res.getBody().articles.length).to.equal(1);
+    expect(res.getBody().articles[0].feed_id).to.equal(10);
+  });
+}

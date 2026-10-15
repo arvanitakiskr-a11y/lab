@@ -1,0 +1,27 @@
+# Copy to .github/workflows/qa.yml ONLY in your training repository.
+# This example assumes app.py and pytest.ini are at repository root.
+# If they are in lab/, change working-directory to lab and artifact path
+# to lab/reports/ci.xml. It runs API/data tests, not browser tests.
+name: Training QA
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest tests/api tests/data -q --junitxml=reports/ci.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: training-qa-report
+          path: reports/ci.xml
+          if-no-files-found: warn

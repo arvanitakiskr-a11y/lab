@@ -1,0 +1,17 @@
+<!doctype html><html lang="el"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Editorial QA Lab</title>
+<style>body{font:17px system-ui;max-width:760px;margin:36px auto;padding:0 20px;color:#18212d}label{display:block;margin-top:16px}input,select,button{font:inherit;padding:9px;max-width:100%;box-sizing:border-box}input[type=text]{width:100%}button{margin:14px 8px 8px 0;cursor:pointer}li{margin:12px 0;padding:10px;border:1px solid #ddd}#message{min-height:30px}small{color:#555}</style>
+<h1>Editorial QA Lab</h1><p>Τοπική εκπαιδευτική εφαρμογή. Δεν καλεί AI ή πραγματικό CMS.</p>
+<label for="account">Λογαριασμός</label><select id="account"><option value="alpha-demo">Alpha</option><option value="beta-demo">Beta</option></select>
+<label for="site">Site</label><select id="site"></select>
+<label for="quantity">Πλήθος άρθρων</label><input id="quantity" type="number" value="1">
+<label for="instruction">Οδηγία</label><input id="instruction" type="text" value="Γράψε στα ελληνικά">
+<button id="generate">Δημιουργία drafts</button><button id="refresh">Ανανέωση λίστας</button>
+<p id="message" role="status"></p><h2>Άρθρα</h2><ul id="articles"></ul><h2>Drafts στο test CMS</h2><ul id="posts"></ul>
+<script>
+const el=id=>document.getElementById(id);const msg=s=>el('message').textContent=s;
+async function api(path,body,key){const h={'X-Demo-Token':el('account').value};if(body!==undefined)h['Content-Type']='application/json';if(key)h['Idempotency-Key']=key;
+const r=await fetch(path,{method:body===undefined?'GET':'POST',headers:h,body:body===undefined?undefined:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw Error('HTTP '+r.status+': '+JSON.stringify(j.detail));return j;}
+async function refresh(){const list=await api('/articles');el('articles').replaceChildren();for(const a of list){const li=document.createElement('li');li.dataset.testid='article';const span=document.createElement('span');span.textContent=a.title+' | feed '+a.feed_id+' | '+a.instruction;li.append(span);const b=document.createElement('button');b.textContent='Αποστολή draft '+a.id;b.onclick=async()=>{try{await api('/publish',{article_id:a.id},'ui-'+a.id);await refresh();msg('Το draft στάλθηκε στο test CMS');}catch(e){msg(e.message);await refresh();}};li.append(b);el('articles').append(li);}const posts=await api('/cms/posts');el('posts').replaceChildren();for(const a of posts){const li=document.createElement('li');li.dataset.testid='cms-post';li.textContent='CMS '+a.id+' | άρθρο '+a.article_id+' | site '+a.site_id+' | '+a.status;el('posts').append(li);}}
+async function load(){try{const sites=await api('/sites');el('site').replaceChildren();for(const s of sites){const o=document.createElement('option');o.value=s.id;o.textContent=s.name;el('site').append(o);}await refresh();msg('Έτοιμο');}catch(e){msg(e.message);}}
+el('account').onchange=load;el('refresh').onclick=()=>refresh().catch(e=>msg(e.message));el('generate').onclick=async()=>{try{await api('/generate',{site_id:Number(el('site').value),quantity:Number(el('quantity').value),instruction:el('instruction').value});await refresh();msg('Τα drafts δημιουργήθηκαν');}catch(e){msg(e.message);}};load();
+</script></html>

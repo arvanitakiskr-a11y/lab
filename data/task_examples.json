@@ -1,0 +1,36 @@
+{
+  "training_only": true,
+  "examples": [
+    {
+      "id": "SIM-A",
+      "status": "completed",
+      "exit_code": 0,
+      "output": "42",
+      "claim": "editorial verified"
+    },
+    {
+      "id": "SIM-B",
+      "status": "completed",
+      "exit_code": 0,
+      "output": "0 tests collected",
+      "claim": "all tests passed"
+    },
+    {
+      "id": "SIM-C",
+      "status": "failed",
+      "exit_code": 1,
+      "output": "ModuleNotFoundError: No module named fastapi"
+    },
+    {
+      "id": "SIM-D",
+      "status": "completed",
+      "exit_code": 1,
+      "output": "test_publish_idempotent FAILED: expected 1, actual 2"
+    },
+    {
+      "id": "SIM-E",
+      "status": "running",
+      "output": "Executing tests..."
+    }
+  ]
+}

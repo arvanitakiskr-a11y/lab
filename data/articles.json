@@ -1,0 +1,85 @@
+[
+  {
+    "case": "D01",
+    "feed_id": 10,
+    "external_id": "a",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T10:00:00Z"
+  },
+  {
+    "case": "D02",
+    "feed_id": 10,
+    "external_id": "a",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T10:00:00Z"
+  },
+  {
+    "case": "D03",
+    "feed_id": 20,
+    "external_id": "a",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T10:00:00Z"
+  },
+  {
+    "case": "D04",
+    "feed_id": 10,
+    "external_id": "b",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-01T12:00:00Z"
+  },
+  {
+    "case": "D05",
+    "feed_id": 10,
+    "external_id": "c",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-01T11:59:59Z"
+  },
+  {
+    "case": "D06",
+    "feed_id": 10,
+    "external_id": "d",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "case": "D07",
+    "feed_id": 10,
+    "external_id": "e",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T12:00:01Z"
+  },
+  {
+    "case": "D08",
+    "feed_id": 10,
+    "external_id": "f",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T15:00:00+03:00"
+  },
+  {
+    "case": "D09",
+    "feed_id": 10,
+    "external_id": "g",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T12:00:00"
+  },
+  {
+    "case": "D10",
+    "feed_id": 10,
+    "external_id": "h",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "invalid"
+  },
+  {
+    "case": "D11",
+    "feed_id": 10,
+    "external_id": "i",
+    "title": "   ",
+    "published_at": "2026-10-08T10:00:00Z"
+  },
+  {
+    "case": "D12",
+    "external_id": "j",
+    "title": "Έγκυρος τίτλος",
+    "published_at": "2026-10-08T10:00:00Z"
+  }
+]

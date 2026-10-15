@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Editorial QA Lab",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
