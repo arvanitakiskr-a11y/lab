@@ -24,9 +24,12 @@ script:post-response {
 }
 
 tests {
-  test("One draft in correct feed", function () {
-    expect(res.getStatus()).to.equal(201);
-    expect(res.getBody().articles.length).to.equal(1);
-    expect(res.getBody().articles[0].feed_id).to.equal(10);
+  test("One draft in Alpha feed", function () {
+  expect(res.getStatus()).to.equal(201);
+  const rows = res.getBody().articles;
+  expect(rows.length).to.equal(1);
+  expect(rows[0].site_id).to.equal(1);
+  expect(rows[0].feed_id).to.equal(10);
+  expect(rows[0].status).to.equal("draft");
   });
 }
