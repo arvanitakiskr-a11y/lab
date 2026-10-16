@@ -16,7 +16,7 @@ headers {
 }
 
 body:json {
-  {"site_id":1,"quantity":1,"instruction":"Type in german"}
+  {"site_id":1,"quantity":1,"instruction":"x"}
 }
 
 script:post-response {
@@ -31,5 +31,13 @@ tests {
   expect(rows[0].site_id).to.equal(1);
   expect(rows[0].feed_id).to.equal(10);
   expect(rows[0].status).to.equal("draft");
+  });
+
+
+  test("ALL articles are draft",function(){
+    const rows = res.getBody().articles;
+    rows.forEach(function(article){
+      expect(article.status).to.equal("draft");
+  });
   });
 }
