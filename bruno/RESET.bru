@@ -1,0 +1,16 @@
+meta {
+  name: RESET
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://127.0.0.1:8000/reset
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  forwardAuthorizationHeader: false
+}

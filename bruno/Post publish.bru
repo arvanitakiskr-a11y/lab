@@ -1,0 +1,26 @@
+meta {
+  name: Post publish
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://127.0.0.1:8000/publish
+  body: json
+  auth: inherit
+}
+
+headers {
+  x-demo-token: alpha-demo
+  idempotency-key: day04-a
+}
+
+body:json {
+  {"article_id": 1}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

@@ -76,3 +76,6 @@ requirements-verified.txt: εκδόσεις του περιβάλλοντος ε
 ## Περιβάλλον εκτέλεσης
 Python: 3.13.3
 OS: Windows
+
+## RESTART
+Τα άρθρα, τα CMS posts και τα idempotency keys χάνονται σε κάθε restart γιατί ζουν στη μνήμη.
