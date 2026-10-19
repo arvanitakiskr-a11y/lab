@@ -27,3 +27,18 @@
 **GitHub MCP / BrainfoodGPT:**  
 File: app.py — γραμμές 72–78 (set_mode), γραμμή 92 (feed_id override)
 Git ref: δεν επιβεβαιώθηκε μέσω GitHub. Έκδοση εφαρμογής: 1.0-training.
+
+
+# Day 05 — Bug Reports & PR Reading
+
+## PR ##104 Analysis — mediasync.ai
+
+PR URL: https://github.com/Brainfood-Media/mediasync.ai/pull/104
+
+**Πρόβλημα:** Η εφαρμογή επέστρεφε `{"message":"..."}` αντί για `{"error":"..."}` σε αποτυχία ταυτοποίησης. Λείπουν βήματα αναπαραγωγής από την περιγραφή του PR — δεν αναφέρεται ποιο endpoint, ποιο token, ή ποια HTTP μέθοδος προκαλεί το πρόβλημα.
+
+**Επίπτωση:** Όταν αποτυγχάνει η ταυτοποίηση, η εφαρμογή πρέπει να επιστρέφει HTTP 401 και κατανοητό μήνυμα στο JSON πεδίο `error`.
+
+**Αλλαγή:** Path: `app/Exceptions/Handler.php`, head branch: `dev-alex`, commit SHA: `cda871e4f4ccf6e42f87b06feeeaf717a4fbc6f2`, μέγεθος: ένα αρχείο, έξι προσθήκες.
+
+**Επαλήθευση:** Check runs στο head commit: 0. Commit statuses: 0, με συνολική ένδειξη pending. Το PR merged χωρίς automated checks και χωρίς review — δεν αποδείχθηκε λειτουργικά ότι το πρόβλημα διορθώθηκε.
