@@ -1,4 +1,4 @@
-# Test case
+                    # Test case
 ID: Q01
 Απαίτηση και πηγή κανόνα: POST /generate δέχεται quantity 1 (ελάχιστο όριο)
 Προϋποθέσεις / mode / test account: POST /reset, normal mode,alpha-demo
