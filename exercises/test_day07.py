@@ -24,3 +24,10 @@ def test_valid_quantities(client,quantity):
     r = client.post("/generate",json=body,headers=A)
     assert r.status_code == 201
     assert len(r.json()["articles"]) == quantity
+    
+
+
+def test_missing_instruction(client):
+    body={"site_id":1,"quantity":1}
+    r = client.post("/generate",json=body,headers=A)
+    assert r.status_code==422
