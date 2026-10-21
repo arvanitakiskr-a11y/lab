@@ -14,3 +14,21 @@ def test_quantity(client):
     assert len(r.json()['articles']) == 4 # we make an assertion that the length of the r.json format with title articles will be equal to 4
                                             # and this is going to return as a FAILED assertion because quantity is equal to 3
                                             # in adittion if the last line is equal to 3 our assertion will be correct and will return PASS
+                                            
+                                            
+@pytest.mark.parametrize("quantity",[1,3])
+def test_quantity(client,quantity):
+    r = generate(client,quantity=quantity)
+    body = {"site_id":1,"instruction":"QA"}
+    assert r.status_code == 201
+    assert len(r.json()['articles']) == quantity
+
+def test_missing_body(client):
+    body = {"site_id":1,"instruction":"QA"}
+    response = client.post("/generate", json = body, headers = A)
+    assert response.status_code == 422
+    
+@pytest.mark.parametrize("instruction,expected",[("a"*80,201),("a"*81,422)])
+def test_double_values(client,instruction,expected):
+    r= generate(client,instruction=instruction)
+    assert r.status_code == expected
