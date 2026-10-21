@@ -1,6 +1,7 @@
 import pytest
 from app import app
 from starlette.testclient import TestClient
+A={'X-Demo-Token':'alpha-demo'}
 
 
 
@@ -17,3 +18,9 @@ def test_bad_quantity(client, value):
     assert client.get("/articles", headers=headers).json() == []
     
     
+@pytest.mark.parametrize("quantity",[1,3])
+def test_valid_quantities(client,quantity):
+    body = {"site_id":1,"quantity":quantity,"instruction":"QA"}
+    r = client.post("/generate",json=body,headers=A)
+    assert r.status_code == 201
+    assert len(r.json()["articles"]) == quantity

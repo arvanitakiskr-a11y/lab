@@ -32,3 +32,32 @@ def test_missing_body(client):
 def test_double_values(client,instruction,expected):
     r= generate(client,instruction=instruction)
     assert r.status_code == expected
+    
+    
+    
+@pytest.mark.parametrize("header",["fake_token"])
+def test_wrong_token(client,header):
+    body = {"site_id": 1, "quantity": 1, "instruction": "QA"}
+    r = client.post("/generate",json=body,headers={"X-Demo-Token": header})
+    assert r.status_code == 401
+    
+@pytest.mark.parametrize("site_id",[999])
+def test_site_id(client,site_id):
+    body = {"site_id":site_id,"quantity":1,"instruction":"QA"}
+    r = client.post("/generate",json=body,headers = A)
+    assert r.status_code == 404
+    
+
+@pytest.mark.parametrize("quantity",[2])
+def test_articles_quantity(client,quantity):
+    body = {"site_id":1,"quantity":quantity,"instruction":"QA"}
+    b = client.post("/generate",json=body,headers=A)
+    r = client.get("/articles",headers=A)
+    assert b.status_code == 201
+    assert len(r.json()) == 2
+    
+@pytest.mark.parametrize("instruction",[""])
+def test_empty_instruction(client,instruction):
+    body={"site_id":1,"quantity":1,"instruction":instruction}
+    r=client.post("/generate",json=body,headers=A)
+    assert r.status_code == 422
