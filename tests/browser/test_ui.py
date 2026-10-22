@@ -54,3 +54,10 @@ def test_beta_draft(page):
     expect(page.get_by_role('status')).to_have_text('Το draft στάλθηκε στο test CMS')
     page.screenshot(path="reports/day08.png")
     
+def test_quantity_three(page):
+    page.goto(BASE)
+    expect(page.get_by_role('status')).to_have_text('Έτοιμο')
+    page.get_by_label('Πλήθος άρθρων').fill('3')
+    page.get_by_role('button',name="Δημιουργία drafts",exact=True).click()
+    expect(page.get_by_test_id('article')).to_have_count(3)
+    page.screenshot(path="reports/day08_quantity3.png")
